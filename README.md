@@ -1,71 +1,101 @@
-# REST API With Node.js, Express, & MongoDB
+# Node.js REST API with MongoDB
 
-This project is a tutorial n how to create a basic REST API using Express and MongoDB
+This is a simple REST API built with Node.js and Express, using MongoDB as the database. It provides endpoints for managing subscribers.
 
+## Prerequisites
 
-Reviewing concepts:
+Before running this project, make sure you have the following installed:
 
-## MongoDB
+- Node.js
+- MongoDB
+- Docker (optional, for running with Docker Compose)
 
-MongoDB is a cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
+## Getting Started
 
-## Mongoose
-Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB. Check [frecodecamp article](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/)
+1. Clone the repository:
 
-## Express.js
+   ```bash
+   git clone https://github.com/zdbrig/nodemongo.git
+   cd nodemongo
+   ```
 
-Express is a back end web application framework for Node.js, released as free and open-source software under the MIT License. It is designed for building web applications and APIs.
+2. Install the dependencies:
 
-## API
+   ```bash
+   npm install
+   ```
 
-An application programming interface is a computing interface that defines interactions between multiple software intermediaries. It defines the kinds of calls or requests that can be made, how to make them, the data formats that should be used, the conventions to follow, etc.
+3. Set up the environment variables:
 
-## REST API
+   - Create a `.env` file in the root directory of the project.
+   - Add the following variable to the `.env` file:
 
-Representational state transfer is a software architectural style that defines a set of constraints to be used for creating Web services. Web services that conform to the REST architectural style, called RESTful Web services, provide interoperability between computer systems on the internet.
+     ```
+     DATABASE_URL=mongodb://localhost:27017/myapp
+     ```
 
-## Tutorial Steps
+     Replace `myapp` with your desired database name.
 
-- npm init - creates a package.json
-- install dependencies: express mongoose
-- next install our dev dependencies
-- *dotenv* - allows us to pull environement variables from dotenv file
-- *nodemon* - refresh our server everytime that we make changes
-- create new script *devStart*
-- create new file *server.js*
-- create *.env file*
-- create *.gitignore*
-- ignore .env fil because it has sensitive information and node_modules because this can be created with npm install
-- follow steps from 1 to 6 from server.js
-- remove mongodb://localhost/subscribers from connection and move to env variable
-- add DATABASE_URL to mongoose.connection
-- require dotenv library
-- add routes to our server and make the server to accept json
-- step 8 & 9
-- create routes folder and subscribers file
-- step 10
-- we will get an error because our subscriberRouter needs middleware
-- set up subscribers.js
-- since its going to be a restful api we are going to use restuful endpoints
-- create routes for get all. getting one, creating one, updating, deleting one
-- in order to test our api's calls we would go into the browser and open it up but we cant really test a REST API very well in a browser because you dont have nothing to interact with, so we are going to use a VS extension, called REST client, that allow us to call a rest api directly from vscode. We could use postman instead
-- after install the extension create a route.rest, we can name it what we want, as long it ends with .rest or .http
-- The res object represents the HTTP response that an Express app sends when it gets an HTTP request
-- The req object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on
-- try to do a console.log in our get request and see that our routing is working
-- next lets create a model that we are going to use for our application
-- create a model folder and a subscriber.js file
-- for this we require mongoose (rebember what mongoose is used for - this allows us to create a model to interact with the database in a really easy way)
-- for this we what to create a *Schema variable*
-```js
-const subscriberSchema = new mongoose.Schema({})
+4. Start the server:
+
+   ```bash
+   npm start
+   ```
+
+   The server will start running at `http://localhost:3000`.
+
+## API Endpoints
+
+The following endpoints are available:
+
+- `GET /subscribers`: Get all subscribers.
+- `GET /subscribers/:id`: Get a specific subscriber by ID.
+- `POST /subscribers`: Create a new subscriber.
+- `PATCH /subscribers/:id`: Update a subscriber by ID.
+- `DELETE /subscribers/:id`: Delete a subscriber by ID.
+
+## Running with Docker Compose
+
+To run the application using Docker Compose, follow these steps:
+
+1. Make sure you have Docker and Docker Compose installed on your machine.
+
+2. Build and run the containers:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+   This will start the Node.js application and MongoDB containers.
+
+3. Access the application at `http://localhost:3000`.
+
+## Testing the API
+
+You can test the API endpoints using a tool like [Postman](https://www.postman.com/) or by running the provided `index.js` script.
+
+To run the `index.js` script:
+
+1. Make sure you have the `axios` package installed:
+
+   ```bash
+   npm install axios
+   ```
+
+2. Run the script:
+
+   ```bash
+   node index.js
+   ```
+
+   The script will make requests to the API endpoints and log the responses.
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
 ```
-- this is going to take a javascript object and this object is going tohave keys for all the different properties of our subscriber (name, subscriberToChannel, subscribeData)
-- with our schema created we want to export that as module.exports = mongoose.model('Subscriber', subscriberSchema)
-- then go to subscribers.js and include that schema
-- next we use async await in our subscribers file
-- after we do the same but for the post request
-- then we configure our request with id's
-- since all the rest of our routes are going to take an ID, they are all going to do the same code in the beginning, so instead of writing that code in every single one of our routes we're going to use what's called a middleware
-- after create the middleware function, getSubscriber, add it at the routers with id's
-- play with the different requests
+
